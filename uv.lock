@@ -1,0 +1,23 @@
+version = 1
+revision = 2
+requires-python = ">=3.12"
+
+[[package]]
+name = "slack-integrations"
+version = "0.1.0"
+source = { virtual = "." }
+dependencies = [
+    { name = "slack-sdk" },
+]
+
+[package.metadata]
+requires-dist = [{ name = "slack-sdk", specifier = ">=3.36.0" }]
+
+[[package]]
+name = "slack-sdk"
+version = "3.36.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/73/1e/bbf7fdd00306f097ddb839c23628b7e271128cc8f584b9cae8f704b3924e/slack_sdk-3.36.0.tar.gz", hash = "sha256:8586022bdbdf9f8f8d32f394540436c53b1e7c8da9d21e1eab4560ba70cfcffa", size = 233382, upload-time = "2025-07-09T20:58:22.838Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/70/9a/380d20856d9ea39fbc4d3bb66f076b0d72035ebe873eb05fc88ebee4125f/slack_sdk-3.36.0-py2.py3-none-any.whl", hash = "sha256:6c96887d7175fc1b0b2777b73bb65f39b5b8bee9bd8acfec071d64014f9e2d10", size = 293949, upload-time = "2025-07-09T20:58:21.233Z" },
+]
