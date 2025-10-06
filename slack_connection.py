@@ -16,13 +16,12 @@ async def send_message():
     try:
         response = client.chat_postMessage(
             channel="C09K6JPAVQ9",
-            text="Hello world"
+            text="Hello world :tada:"
         )
 
         return response
 
     except SlackApiError as e:
-        # You will get a SlackApiError if "ok" is False
         assert e.response["error"]  
 
 if __name__=="__main__":
