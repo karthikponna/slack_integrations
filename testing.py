@@ -5,11 +5,11 @@ async def main():
     # Create an instance of AsyncWebCrawler
     async with AsyncWebCrawler() as crawler:
         # Run the crawler on a URL
-        result = await crawler.arun(url="https://crawl4ai.com")
+        result = await crawler.arun(url="https://docs.clearfeed.ai/clearfeed-help-center/answers/ai-agents")
         print(result)
         
         if result:
-            with open("data/crawled_documents.md", "w") as file:
+            with open("data/clearfeed_crawled_documents.md", "w") as file:
                 file.write(result.markdown)
 
 if __name__=="__main__":
