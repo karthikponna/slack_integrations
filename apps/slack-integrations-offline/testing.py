@@ -6,7 +6,7 @@ async def main():
     async with AsyncWebCrawler() as crawler:
         # Run the crawler on a URL
         result = await crawler.arun(url="https://docs.clearfeed.ai/clearfeed-help-center/answers/ai-agents")
-        print(result)
+        
         
         if result:
             with open("data/clearfeed_crawled_documents.md", "w") as file:
