@@ -1,0 +1,5 @@
+parameters:
+  urls:
+    - https://docs.clearfeed.ai/clearfeed-help-center/answers/ai-agents
+  data_dir: data/
+  to_s3: true
