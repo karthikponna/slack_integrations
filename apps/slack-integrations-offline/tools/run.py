@@ -4,7 +4,9 @@ from typing import Any
 
 import click
 
-from pipelines import testing_pipeline
+from pipelines import (
+    collect_crawl_data
+)
 
 
 @click.command(
@@ -12,13 +14,13 @@ from pipelines import testing_pipeline
     Just a command"""
 )
 @click.option(
-    "--run-testing-pipeline",
+    "--run-collect-crawl-data-pipeline",
     is_flag=True,
     default=False,
-    help="Whether to run the ETL pipeline.",
+    help="Whether to run the collect crawled data from pipeline.",
 )
 def main(
-    run_testing_pipeline: bool = False,
+    run_collect_crawl_data_pipeline: bool = False,
 ) -> None:
     
     pipeline_args: dict[str, Any] = {
@@ -27,14 +29,14 @@ def main(
     root_dir = Path(__file__).resolve().parent.parent
 
 
-    if run_testing_pipeline:
+    if run_collect_crawl_data_pipeline:
         run_args = {}
-        pipeline_args["config_path"] = root_dir / "configs" / "testing_pipeline.yaml"
+        pipeline_args["config_path"] = root_dir / "configs" / "collect_crawl_data.yaml"
         assert pipeline_args["config_path"].exists(), (
             f"Config file not found: {pipeline_args['config_path']}"
         )
         pipeline_args["run_name"] = f"testing_run_{dt.now().strftime('%Y_%m_%d_%H_%M_%S')}"
-        testing_pipeline.with_options(**pipeline_args)(**run_args)
+        collect_crawl_data.with_options(**pipeline_args)(**run_args)
 
 
 if __name__ == "__main__":
