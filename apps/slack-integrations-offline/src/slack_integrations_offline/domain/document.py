@@ -3,7 +3,7 @@ import json
 from pathlib import Path
 from pydantic import BaseModel, Field
 
-from slack_integrations_offline.utils import generate_random_hex
+from src.slack_integrations_offline.utils import generate_random_hex
 
 
 class DocumentMetadata(BaseModel):
@@ -19,6 +19,13 @@ class Document(BaseModel):
     content: str
     content_quality_score: float | None = None
     child_urls: list[str] = Field(default_factory=list)
+
+    @classmethod
+    def from_file(cls, file_path: Path) -> "Document":
+
+        json_data = file_path.read_text(encoding="utf-8")
+
+        return cls.model_validate_json(json_data)
 
 
     def write(
