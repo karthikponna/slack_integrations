@@ -1,5 +1,7 @@
 parameters:
   urls:
     - https://docs.clearfeed.ai/clearfeed-help-center/answers/ai-agents
+    - https://docs.clearfeed.ai/clearfeed-help-center/answers/ai-agents/build-ai-agents
+    - https://ai.pydantic.dev/#tools-dependency-injection-example
   data_dir: data/
   to_s3: true
