@@ -1,0 +1,2 @@
+parameters:
+  data_dir: s3_data/
