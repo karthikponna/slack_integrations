@@ -2,17 +2,42 @@ from loguru import logger
 from typing_extensions import Annotated
 from zenml import get_step_context, step
 
-from crawl4ai import AsyncWebCrawler
+from src.slack_integrations_offline.applications.crawlers import Crawl4AICrawler
+from src.slack_integrations_offline.domain import Document
 
 @step
 def extract_crawled_data(
+    urls: list[str], max_workers:int = 10
+) -> Annotated[list[Document], "crawled_documents"]:
+    
+    try:
+        logger.info(f"Starting crawl with {len(urls)} URLs")
+        crawler = Crawl4AICrawler(max_concurrent_requests=max_workers)
 
-):
-    pass
+        pages = crawler(urls)
+        logger.info(f"Crawler returned: {type(pages)}")
 
+        if pages is None:
+            logger.error("Crawler returned None!")
+            return []
 
-async def async_crawl(url:str):
+        augmented_pages = list(set(pages))
 
-    async with AsyncWebCrawler() as crawler:
-        result = await crawler.arun(url=url)
-        
+        logger.info(f"Number of urls for crawling {len(urls)}.")
+        logger.info(f"After crawling, we have a total of {len(augmented_pages)} documents.")
+
+        step_context = get_step_context()
+        step_context.add_output_metadata(
+            output_name="crawled_documents",
+            metadata={
+                "no_urls_for_crawling": len(urls),
+                "len_documents_after_crawling": len(augmented_pages),
+            }
+        )
+
+        return augmented_pages
+    
+    except Exception as e:
+        logger.error(f"Error in extract_crawled_data: {e}")
+        logger.exception("Full traceback:")
+        raise
