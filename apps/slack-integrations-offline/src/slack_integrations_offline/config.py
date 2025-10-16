@@ -18,17 +18,22 @@ class Settings(BaseSettings):
     )
 
     AWS_DEFAULT_REGION: str = Field(
-        default=..., description="AWS region for cloud services."
+        default="us-east-1", description="AWS region for cloud services."
     )
 
     AWS_S3_BUCKET_NAME: str = Field(
-        default=...,
+        default="support-public-data",
         description="Name of the S3 bucket for storing application data."
     )
 
     # OpenAI Configuration
     OPENAI_API_KEY: str = Field(
         description="API key for OpenAI service authentication."
+    )
+
+    # Slack Configuration
+    SLACK_BOT_TOKEN: str = Field(
+        description="Bot token for slack."
     )
 
 
