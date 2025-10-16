@@ -17,6 +17,7 @@ class Document(BaseModel):
     id: str = Field(default_factory=lambda: generate_random_hex(length=32))
     metadata: DocumentMetadata
     content: str
+    summary: str | None = None
     content_quality_score: float | None = None
     child_urls: list[str] = Field(default_factory=list)
 
