@@ -4,10 +4,11 @@ import psutil
 from loguru import logger
 from typing import List
 
-from crawl4ai import AsyncWebCrawler, CacheMode
+from crawl4ai import AsyncWebCrawler, CacheMode, CrawlerRunConfig
+from crawl4ai.markdown_generation_strategy import DefaultMarkdownGenerator
 
-from domain.document import Document, DocumentMetadata
-from slack_integrations_offline.utils import generate_random_hex
+from src.slack_integrations_offline.domain.document import Document, DocumentMetadata
+from src.slack_integrations_offline.utils import generate_random_hex
 
 
 
@@ -27,7 +28,7 @@ class Crawl4AICrawler:
             return asyncio.run(self.__crawl_batch(urls))
         
         else:
-            loop.run_until_complete(self.__crawl_batch(urls))
+            return loop.run_until_complete(self.__crawl_batch(urls))
 
 
     async def __crawl_batch(self, urls:list[str]) -> list[Document]:
@@ -45,12 +46,13 @@ class Crawl4AICrawler:
         final_results = []
 
         async with AsyncWebCrawler(cache_mode = CacheMode.BYPASS) as crawler:
-            for url in urls:
-                tasks = [
-                    self.__crawl_url(url, crawler, semaphore)
-                ]
-                results = await asyncio.gather(*tasks)
-                final_results.extend(results)
+            tasks = [
+                self.__crawl_url(url, crawler, semaphore)
+                for url in urls
+            ]
+            results = await asyncio.gather(*tasks)
+            final_results.extend(results)
+            
 
         end_memory = process.memory_info().rss
         crawling_memory_diff = end_memory - start_memory
@@ -83,11 +85,23 @@ class Crawl4AICrawler:
         semaphore: asyncio.Semaphore,
     ) -> Document | None:
 
+        md_generator = DefaultMarkdownGenerator(
+            options={
+                "ignore_links": True,
+                "escape_html": False,
+                "ignore_images": True,
+            }
+        )
+
+        config = CrawlerRunConfig(
+            markdown_generator=md_generator
+        )
+
         async with semaphore:
-            result = await crawler.arun(url=url)
+            result = await crawler.arun(url=url, config=config)
             await asyncio.sleep(0.5)
 
-            if not result or result.success:
+            if not result or not result.success:
                 logger.warning(f"Failed to crawl {url}")
 
             if result.markdown is None:
