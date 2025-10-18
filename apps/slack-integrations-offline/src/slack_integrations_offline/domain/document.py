@@ -51,7 +51,11 @@ class Document(BaseModel):
                 f.write(self.content)
 
         
+    def add_summary(self, summary: str) -> "Document":
+        
+        self.summary = summary
 
+        return self
 
     def __eq__(self, other: object) -> bool:
         
