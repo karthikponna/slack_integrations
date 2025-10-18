@@ -22,7 +22,7 @@ class Crawl4AICrawler:
     def __call__(self, urls: list[str]) -> list[Document]:
         
         try:
-            loop = asyncio.get_event_loop()
+            loop = asyncio.get_running_loop()
 
         except RuntimeError:
             return asyncio.run(self.__crawl_batch(urls))
