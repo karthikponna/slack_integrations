@@ -12,7 +12,7 @@ def generate_summary(
     documents: list[Document],
     temperature: float = 0.0,
     max_workers: int = 10,
-    min_document_length: int = 50,
+    min_document_characters: int = 50,
     summarization_max_characters: int = 1000,
 
 ) -> Annotated[list[Document],"summary"]:
@@ -21,7 +21,7 @@ def generate_summary(
         summarization_model=summarization_model,
         summarization_max_characters=summarization_max_characters,
         max_workers=max_workers,
-        min_document_length=min_document_length,
+        min_document_length=min_document_characters,
     )
 
     summaries = summary_generator.generate(documents=documents, temperature=temperature)

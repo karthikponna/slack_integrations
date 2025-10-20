@@ -77,6 +77,8 @@ class SummarizationAgent:
         else:
             results = loop.run_until_complete(self.__summarize_batch(docs_list, temperature))
 
+        return results[0] if is_single_document else results
+
     
 
     async def __summarize_batch(
@@ -94,7 +96,7 @@ class SummarizationAgent:
             f"Current process memory usage: {start_memory // (1024 * 1024)} MB"
         )
 
-        summarized_documents = self.__process_batch(
+        summarized_documents = await self.__process_batch(
             documents, temperature, await_time_seconds=7
         )
 
@@ -111,7 +113,7 @@ class SummarizationAgent:
                 f"Retrying {len(documents_without_summaries)} failed documents with increased await time..."
             )
 
-            retry_results = self.__process_batch(
+            retry_results = await self.__process_batch(
                 documents_without_summaries, temperature, await_time_seconds=20
             )
             documents_with_summaries += retry_results
