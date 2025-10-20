@@ -20,7 +20,7 @@ def collect_crawl_data(
     logger.info(f"Saving crawled data to {crawled_data_dir}")
     
 
-    urls = extract_urls_from_sitemap(url_prefix = url_prefix)
+    urls = extract_urls_from_sitemap(url_prefix=url_prefix)
 
     crawled_documents = extract_crawled_data(urls=urls, max_workers=max_workers)
 
