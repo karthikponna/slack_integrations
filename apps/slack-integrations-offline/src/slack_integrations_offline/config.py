@@ -36,6 +36,17 @@ class Settings(BaseSettings):
         description="Bot token for slack."
     )
 
+    # MongoDB Configuration
+    MONGODB_DATABASE_NAME: str = Field(
+        default="slack_integrations",
+        description="Name of the MongoDB database.",
+    )
+
+    MONGODB_URI: str = Field(
+        default="mongodb+srv://karthikponna963_db_user:ccWG3CrTZbWiEhXd@cluster0.yuyvgml.mongodb.net/",
+        description="Connection URI for the local MongoDB Atlas instance.",
+    )
+
 
     @field_validator("OPENAI_API_KEY")
     @classmethod
