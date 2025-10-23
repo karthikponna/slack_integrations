@@ -1,2 +1,7 @@
 parameters:
-  data_dir: s3_data/
+  summarization_model: gpt-4o-mini
+  load_collection_name: raw
+  data_dir: testing_data/
+  temperature: 0.0
+  max_workers: 10
+  summarization_max_characters: 1000
