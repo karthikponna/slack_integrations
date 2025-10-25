@@ -55,7 +55,7 @@ class SummarizationGenerator:
             f"No. of documents after pregeneration filtering: {len(filtered_documents)}"
         )
 
-        summarized_documents: list[Document] = self.__single_summarization(
+        summarized_documents: list[Document] = self.__summarization(
             filtered_documents, temperature
         )
         logger.info(
@@ -86,7 +86,7 @@ class SummarizationGenerator:
         return documents
     
 
-    def __single_summarization(
+    def __summarization(
         self, documents: list[Document], temperature: float = 0.0
     ) -> list[Document]:
         
