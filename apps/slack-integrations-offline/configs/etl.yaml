@@ -1,7 +1,7 @@
 parameters:
   summarization_model: gpt-4o-mini
   load_collection_name: raw
-  data_dir: testing_data/
+  data_dir: data/
   temperature: 0.0
   max_workers: 10
   summarization_max_characters: 1000
