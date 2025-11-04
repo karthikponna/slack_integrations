@@ -13,6 +13,7 @@ dependencies = [
     "langchain-mongodb>=0.7.1",
     "langchain-openai>=1.0.1",
     "loguru>=0.7.3",
+    "openai-agents>=0.4.2",
     "pip>=25.3",
     "python-dotenv>=1.1.1",
     "slack-sdk>=3.37.0",
