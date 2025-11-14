@@ -18,6 +18,10 @@ class Settings(BaseSettings):
         description="Bot token for slack."
     )
 
+    SLACK_APP_TOKEN: str = Field(
+        description="App token of Socket model for slack."
+    )
+
     # MongoDB Configuration
     MONGODB_DATABASE_NAME: str = Field(
         default="slack_integrations",
