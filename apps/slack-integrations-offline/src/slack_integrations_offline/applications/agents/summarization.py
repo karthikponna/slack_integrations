@@ -21,10 +21,8 @@ class SummarizationAgent:
     **Include:**
     - Titles of sections and sub-sections
     - Key concepts and explanations
-    - Important code examples with proper syntax
     - Essential technical details
     - Main findings and insights
-    - The document's style, type, and sentiment
 
     **Exclude:**
     - Navigation elements and sidebars
@@ -34,7 +32,6 @@ class SummarizationAgent:
 
     **Format Requirements:**
     - Return clean markdown format
-    - Use proper code blocks with language specification
     - Use appropriate headers (##, ###)
     - Preserve the original writing style where relevant
     - Highlight the most significant insights and implications
