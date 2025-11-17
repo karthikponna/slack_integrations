@@ -1,0 +1,11 @@
+parameters:
+  extract_collection_name: raw
+  new_collection_name: rag
+  embedding_model_id: text-embedding-3-small
+  embedding_model_dim: 1536
+  retriever_type: contextual
+  chunk_size: 2000
+  top_k: 3
+  processing_batch_size: 4
+  processing_max_workers: 2
+  limit: 0
