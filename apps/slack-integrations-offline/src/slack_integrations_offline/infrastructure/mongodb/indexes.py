@@ -4,7 +4,14 @@ from src.slack_integrations_offline.infrastructure.mongodb.service import MongoD
 
 
 class MongodbIndex:
-
+    """Manager for creating and configuring MongoDB vector search indexes.
+    
+    Handles creation of vector search indexes and optional full-text search indexes for hybrid retrieval.
+    
+    Attributes:
+        retriever: Retriever instance containing the vector store configuration.
+        mongodb_client: MongoDBService instance for database operations.
+    """
     def __init__(
         self,
         retriever,
@@ -19,6 +26,12 @@ class MongodbIndex:
         embedding_dims: int,
         is_hybrid: bool = False,
     ) -> None:
+        """Create vector search index and optionally full-text search index in MongoDB.
+    
+        Args:
+            embedding_dims: Dimensionality of the embedding vectors for the index.
+            is_hybrid: Whether to create additional full-text search index for hybrid retrieval.
+        """
         
         vectorstore = self.retriever.vectorstore
 
@@ -30,5 +43,5 @@ class MongodbIndex:
             create_fulltext_search_index(
                 collection=self.mongodb_client.collection,
                 field=vectorstore._text_key,
-                index_name=self.retriever.search_index_name
+                index_name=self.retriever.search_index_na
             )

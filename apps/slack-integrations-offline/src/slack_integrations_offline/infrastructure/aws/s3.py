@@ -13,6 +13,17 @@ from src.slack_integrations_offline.config import settings
 
 
 class S3Client:
+    """Client for interacting with AWS S3 storage for file operations.
+    
+    Handles uploading folders as zip archives, bucket management, and presigned URL generation.
+    
+    Attributes:
+        bucket_name: Name of the S3 bucket to interact with.
+        region: AWS region for the S3 bucket.
+        no_sign_request: Whether to use unsigned requests for public buckets.
+        s3_client: Boto3 S3 client instance for API operations.
+    """
+
     def __init__(
         self,
         bucket_name: str, 
@@ -44,7 +55,16 @@ class S3Client:
 
     
     def upload_folder(self, local_path: Union[str, Path], s3_prefix: str = "") -> str:
-
+        """Upload a local folder to S3 as a compressed zip archive.
+    
+        Args:
+            local_path: Path to the local folder to upload.
+            s3_prefix: S3 prefix path where the zip file will be stored.
+        
+        Returns:
+            str: S3 key path of the uploaded zip file.
+        """
+        
         # Ensure bucket exists before proceeding
         self.__create_bucket_if_doesnt_exist()
 
@@ -86,7 +106,15 @@ class S3Client:
 
 
     def __create_bucket_if_doesnt_exist(self) -> None:
+        """Check if the S3 bucket exists and create it if it doesn't.
+    
+        Returns:
+            None
         
+        Raises:
+            Exception: If bucket creation fails or access is denied.
+        """
+
         try:
             self.s3_client.head_bucket(Bucket=self.bucket_name)
 
@@ -108,7 +136,18 @@ class S3Client:
                 raise
 
     def generate_presigned_url(self, s3_key: str, expiration: int = 604800) -> str:
-        """Generate a pre-signed URL (default: 7 days)"""
+        """Generate a presigned URL for temporary access to an S3 object.
+    
+        Args:
+            s3_key: S3 key path of the object to generate URL for.
+            expiration: URL expiration time in seconds. Defaults to 604800 (7 days).
+        
+        Returns:
+            str: Presigned URL for accessing the S3 object.
+        
+        Raises:
+            Exception: If URL generation fails.
+        """
         try:
             url = self.s3_client.generate_presigned_url(
                 'get_object',
@@ -117,6 +156,7 @@ class S3Client:
             )
             logger.info(f"Generated presigned URL (valid for {expiration}s): {url}")
             return url
+        
         except Exception as e:
             logger.error(f"Error generating presigned URL: {e}")
             raise
