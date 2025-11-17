@@ -13,6 +13,11 @@ from src.slack_integrations_offline.utils import generate_random_hex
 
 
 class Crawl4AICrawler:
+    """A crawler implementation using crawl4ai library for concurrent web crawling.
+
+    Attributes:
+        max_concurrent_requests: Maximum number of concurrent HTTP requests allowed.
+    """
 
     def __init__(self, max_concurrent_requests:int = 10) -> None:
         
@@ -20,7 +25,15 @@ class Crawl4AICrawler:
 
 
     def __call__(self, urls: list[str]) -> list[Document]:
+        """Crawl multiple URLs and extract their content as Document objects.
+    
+        Args:
+            urls: List of URLs to crawl.
         
+        Returns:
+            list[Document]: List of successfully crawled documents with extracted content.
+        """
+
         try:
             loop = asyncio.get_running_loop()
 
@@ -32,6 +45,14 @@ class Crawl4AICrawler:
 
 
     async def __crawl_batch(self, urls:list[str]) -> list[Document]:
+        """Process a batch of URLs concurrently with semaphore-controlled crawling.
+    
+        Args:
+            urls: List of URLs to crawl in batch.
+        
+        Returns:
+            list[Document]: List of successfully crawled documents, excluding failed attempts.
+        """
 
         process = psutil.Process(os.getpid())
         start_memory = process.memory_info().rss
@@ -84,7 +105,17 @@ class Crawl4AICrawler:
         crawler:AsyncWebCrawler,
         semaphore: asyncio.Semaphore,
     ) -> Document | None:
-
+        """Crawl a single URL and extract its content as a Document.
+    
+        Args:
+            url: URL to crawl.
+            crawler: AsyncWebCrawler instance for performing the crawl operation.
+            semaphore: Semaphore for controlling concurrent request limits.
+        
+        Returns:
+            Document | None: Document object with extracted content, or None if crawling failed.
+        """
+        
         md_generator = DefaultMarkdownGenerator(
             options={
                 "ignore_links": True,
