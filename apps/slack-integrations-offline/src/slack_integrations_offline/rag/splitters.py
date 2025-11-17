@@ -6,7 +6,14 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 def get_splitter(
     chunk_size: int
 ) -> RecursiveCharacterTextSplitter:
+    """Create a recursive character text splitter with tiktoken encoding.
     
+    Args:
+        chunk_size: Maximum size of each text chunk in tokens.
+    
+    Returns:
+        RecursiveCharacterTextSplitter: Configured text splitter with 15% overlap and hierarchical separators.
+    """
     chunk_overlap = int(0.15 * chunk_size)
 
     logger.info(

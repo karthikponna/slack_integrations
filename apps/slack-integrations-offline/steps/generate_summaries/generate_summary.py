@@ -16,6 +16,19 @@ def generate_summary(
     summarization_max_characters: int = 1000,
 
 ) -> Annotated[list[Document],"summary"]:
+    """Generate summaries for multiple documents using a llm.
+    
+    Args:
+        summarization_model: Identifier for the language model to use for summarization.
+        documents: List of documents to generate summaries from.
+        temperature: Sampling temperature for text generation.
+        max_workers: Maximum number of concurrent workers for parallel processing.
+        min_document_characters: Minimum character length for documents to be summarized.
+        summarization_max_characters: Maximum character length for generated summaries.
+    
+    Returns:
+        list[Document]: List of documents with their generated summaries.
+    """
     
     summary_generator = SummarizationGenerator(
         summarization_model=summarization_model,

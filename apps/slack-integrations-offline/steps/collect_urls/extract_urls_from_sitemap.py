@@ -11,6 +11,14 @@ from zenml.steps import get_step_context
 @step
 def extract_urls_from_sitemap(url_prefix: str) -> Annotated[list[str], "urls_from_sitemap"]:
 
+    """Extract URLs from a sitemap XML file.
+
+    Args:
+        url_prefix: Base URL prefix to construct the sitemap URL from.
+
+    Returns:
+        list[str]: List of URLs extracted from the sitemap.
+    """
     sitemap_url = url_prefix.rstrip('/') + '/sitemap-pages.xml'
     logger.info(f"Constructed sitemap url {sitemap_url}")
 

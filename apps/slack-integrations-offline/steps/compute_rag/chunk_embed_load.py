@@ -31,6 +31,20 @@ def chunk_embed_load(
     processing_max_workers: int,
 ) -> None:
     
+    """Chunk documents, generate embeddings, and load them into MongoDB with vector index.
+    
+    Args:
+        documents: List of documents to process.
+        collection_name: Name of the MongoDB collection to store documents.
+        embedding_model_id: Identifier for the embedding model to use.
+        embedding_model_dim: Dimensionality of the embedding vectors.
+        retriever_type: Type of retriever to use for vector search.
+        chunk_size: Size of text chunks for splitting documents.
+        top_k: Number of top results to retrieve in searches.
+        processing_batch_size: Number of documents to process in each batch.
+        processing_max_workers: Maximum number of concurrent workers for processing.
+    """
+    
     splitter = get_splitter(chunk_size=chunk_size)
 
     retriever = get_retriever(embedding_model_id=embedding_model_id, k=top_k)
@@ -76,6 +90,15 @@ def process_docs(
     batch_size: int = 4,
     max_workers: int = 2,
 ) -> None:
+    """Process documents in parallel batches by splitting and embedding them.
+    
+    Args:
+        docs: List of LangChain documents to process.
+        retriever: Retriever instance for generating and storing embeddings.
+        splitter: Text splitter for chunking documents.
+        batch_size: Number of documents to process in each batch.
+        max_workers: Maximum number of concurrent workers.
+    """
     batches = list(get_batches(docs=docs, batch_size=batch_size))
     results = []
 
@@ -103,7 +126,15 @@ def process_docs(
 def get_batches(
     docs: list[LangChainDocument], batch_size: int
 ) -> Generator[list[LangChainDocument], None, None]:
+    """Generate batches of documents for parallel processing.
     
+    Args:
+        docs: List of LangChain documents to batch.
+        batch_size: Number of documents per batch.
+    
+    Yields:
+        Generator[list[LangChainDocument], None, None]: Batches of documents.
+    """
     for i in range(0, len(docs), batch_size):
         yield docs[i : i + batch_size]
 
@@ -114,7 +145,13 @@ def process_batch(
     batch: list[LangChainDocument],
     retriever: Any,
 ) -> None:
+    """Process a single batch of documents by splitting and adding to vector store.
     
+    Args:
+        splitter: Text splitter for chunking documents.
+        batch: Batch of LangChain documents to process.
+        retriever: Retriever instance containing the vector store.
+    """
     try:
         split_docs = splitter.split_documents(batch)
         retriever.vectorstore.add_documents(split_docs)

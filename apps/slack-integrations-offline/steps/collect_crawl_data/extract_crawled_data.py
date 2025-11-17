@@ -10,6 +10,16 @@ def extract_crawled_data(
     urls: list[str], max_workers:int = 10
 ) -> Annotated[list[Document], "crawled_documents"]:
     
+    """Extract content from multiple URLs using web crawling.
+
+    Args:
+        urls: List of URLs to crawl.
+        max_workers: Maximum number of concurrent crawling requests.
+
+    Returns:
+        list[Document]: List of documents with their extracted content from crawled pages.
+    """
+    
     try:
         logger.info(f"Starting crawl with {len(urls)} URLs")
         crawler = Crawl4AICrawler(max_concurrent_requests=max_workers)
