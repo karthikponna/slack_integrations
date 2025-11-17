@@ -1,0 +1,16 @@
+services:
+  local_dev_atlas:
+    image: mongodb/mongodb-atlas-local:8.0
+    hostname: local_dev_atlas
+    ports:
+      - 27017:27017
+    environment:
+      - MONGODB_INITDB_ROOT_USERNAME=slack
+      - MONGODB_INITDB_ROOT_PASSWORD=slack
+    volumes:
+      - data:/data/db
+      - config:/data/configdb
+
+volumes:
+  data:
+  config:
