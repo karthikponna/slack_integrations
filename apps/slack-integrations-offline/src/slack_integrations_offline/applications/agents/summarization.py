@@ -11,7 +11,16 @@ from src.slack_integrations_offline.domain.document import Document
 
 
 class SummarizationAgent:
+    """Agent for generating concise summaries of technical documentation using language models.
     
+    Processes documents asynchronously with configurable concurrency limits 
+    and automatic retry logic for failed summarizations.
+    
+    Attributes:
+        max_characters: Maximum character length for generated summaries.
+        model_id: Identifier for the language model to use.
+        max_concurrent_requests: Maximum number of concurrent API requests.
+    """
     
     SYSTEM_PROMPT_TEMPLATE = """
     You are a helpful assistant specialized in summarizing technical documentation.
