@@ -1,24 +1,17 @@
 import os
-import asyncio
 import json
 import warnings
-from typing import List
-from pydantic import BaseModel
 
 from agents import (
     Agent,
-    ItemHelpers,
-    MessageOutputItem,
-    RunContextWrapper,
     Runner,
-    ToolCallItem,
-    ToolCallOutputItem,
-    TResponseInputItem,
-    function_tool,
     FunctionTool,
+    gen_trace_id,
+    trace,
 )
+from loguru import logger
 
-from src.slack_integrations_online.application.agents.tools.memory_tools import add_to_memory, search_memory
+from src.slack_integrations_online.application.agents.tools.memory_tools import add_to_memory, search_memory, Mem0Context
 from src.slack_integrations_online.application.agents.tools.monogdb_retriever_tools import mongodb_retriever_tool, get_complete_docs_with_url
 
 warnings.filterwarnings("ignore", category=DeprecationWarning)
@@ -49,20 +42,45 @@ Determine if the user is asking about their previous memories/conversations or a
 - Only use get_complete_docs_with_url when chunks are relevant to the query but lack sufficient detail or context
 """
 
+agent = Agent(
+    name = "Mongodb Agent",
+    instructions=INSTRUCTIONS,
+    tools = [search_memory, mongodb_retriever_tool, get_complete_docs_with_url, add_to_memory],
+    model = "o4-mini",
+
+)
+
+logger.info("Initializing agent with the following tools:")
+for tool in agent.tools:
+    if isinstance(tool, FunctionTool):
+        logger.info(f"Tool name: {tool.name}")
+        logger.info(f"Tool description: {tool.description}")
+        logger.info(f"Tool parameters: {json.dumps(tool.params_json_schema, indent=2)}")
 
 
-def get_agent() -> "AgentWrapper":
-    pass
+class SupportAgentsManager():
+    """Manager for running support agents with memory context and trace logging."""
+    
+    def __init__(self) -> None:
+        pass
 
+    async def run(self, query:str, user_id: str = "default_user") -> None:
+        
+        trace_id = gen_trace_id()
 
-class AgentWrapper:
+        try:
 
-    @classmethod
-    def building_agents(cls) -> "AgentWrapper":
+            with trace("Support Agents Trace", trace_id=trace_id):
 
-        agent = Agent(
-        name = "Mongodb Agent",
-        instructions=INSTRUCTIONS,
-        tools = [search_memory, mongodb_retriever_tool, get_complete_docs_with_url, add_to_memory],
-        model = "o4-mini",
-    )
+                logger.info("Starting the agent run")
+                logger.info(f"View trace: https://platform.openai.com/traces/trace?trace_id={trace_id}")
+                context = Mem0Context(user_id=user_id)
+                result = await Runner.run(agent, input=f"User query: {query}", context=context)
+
+                final_output = result.final_output
+                logger.info(f"Agent response: {final_output}")
+
+                return final_output
+
+        except Exception as e:
+            logger.error(f"Error running agent: {str(e)}")
