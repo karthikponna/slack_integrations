@@ -5,16 +5,8 @@ from pydantic import BaseModel
 
 from mem0.configs.base import MemoryConfig, EmbedderConfig, VectorStoreConfig, LlmConfig
 from agents import (
-    Agent,
-    ItemHelpers,
-    MessageOutputItem,
     RunContextWrapper,
-    Runner,
-    ToolCallItem,
-    ToolCallOutputItem,
-    TResponseInputItem,
     function_tool,
-    FunctionTool,
 )
 
 from src.slack_integrations_online.config import settings
