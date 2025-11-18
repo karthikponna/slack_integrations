@@ -95,9 +95,12 @@ class S3Client:
             )
 
             self.s3_client.upload_file(
-            temp_zip.name, 
-            self.bucket_name,
-            s3_key,
+                temp_zip.name, 
+                self.bucket_name,
+                s3_key,
+                ExtraArgs={
+                    'ACL': 'public-read',
+                }
             )
 
         # clean up temporary zip file
@@ -135,28 +138,13 @@ class S3Client:
             else:
                 raise
 
-    def generate_presigned_url(self, s3_key: str, expiration: int = 604800) -> str:
-        """Generate a presigned URL for temporary access to an S3 object.
-    
-        Args:
-            s3_key: S3 key path of the object to generate URL for.
-            expiration: URL expiration time in seconds. Defaults to 604800 (7 days).
+
+    def get_public_url(self, s3_key: str) -> str:
+        """Constructs the public URL for the object."""
         
-        Returns:
-            str: Presigned URL for accessing the S3 object.
+        url = f"https://{self.bucket_name}.s3.{self.region}.amazonaws.com/{s3_key}"
         
-        Raises:
-            Exception: If URL generation fails.
-        """
-        try:
-            url = self.s3_client.generate_presigned_url(
-                'get_object',
-                Params={'Bucket': self.bucket_name, 'Key': s3_key},
-                ExpiresIn=expiration
-            )
-            logger.info(f"Generated presigned URL (valid for {expiration}s): {url}")
-            return url
-        
-        except Exception as e:
-            logger.error(f"Error generating presigned URL: {e}")
-            raise
+        logger.info(f"Generated public URL: {url}")
+        return url
+
+

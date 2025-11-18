@@ -28,7 +28,7 @@ def upload_to_s3(
     s3_client = S3Client(bucket_name=settings.AWS_S3_BUCKET_NAME)
     s3_key = s3_client.upload_folder(local_path=folder_path, s3_prefix=s3_prefix)
 
-    download_url = s3_client.generate_presigned_url(s3_key=s3_key)
+    download_url = s3_client.get_public_url(s3_key=s3_key)
     
     step_context = get_step_context()
     step_context.add_output_metadata(
