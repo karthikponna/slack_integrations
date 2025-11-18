@@ -1,23 +1,10 @@
 import os
 
-from agents import (
-    Agent,
-    ItemHelpers,
-    MessageOutputItem,
-    RunContextWrapper,
-    Runner,
-    ToolCallItem,
-    ToolCallOutputItem,
-    TResponseInputItem,
-    function_tool,
-    FunctionTool,
-)
+from agents import function_tool
 
 from src.slack_integrations_online.application.rag.retrievers import get_retriever
 from src.slack_integrations_online.application.rag.single_document_retriever import get_single_document
 # from src.slack_integrations_online.utils import load_yaml_file
-
-# load_yaml_file()
 
 
 @function_tool
