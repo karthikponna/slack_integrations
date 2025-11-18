@@ -2,7 +2,16 @@ from pymongo import MongoClient
 
 from src.slack_integrations_online.config import settings
 
+
 def get_single_document(url: str) -> str:
+    """Retrieve a single document from MongoDB by URL and format as XML.
+    
+    Args:
+        url: URL of the document to retrieve from the database.
+    
+    Returns:
+        str: XML-formatted document with URL and content.
+    """
 
     try:
         client = MongoClient(settings.MONGODB_URI)  # Adjust based on your settings
