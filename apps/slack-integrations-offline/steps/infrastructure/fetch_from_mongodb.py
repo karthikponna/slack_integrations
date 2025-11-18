@@ -14,7 +14,15 @@ def fetch_from_mongodb(
     collection_name: str, 
     limit: int,
 ) -> Annotated[list[dict], "documents"]:
+    """Fetch documents from a MongoDB collection.
     
+    Args:
+        collection_name: Name of the MongoDB collection to fetch documents from.
+        limit: Maximum number of documents to retrieve.
+    
+    Returns:
+        list[dict]: List of documents fetched from the collection.
+    """
     with MongoDBService(model=Document, collection_name=collection_name) as service:
         documents =service.fetch_documents(limit=limit, query={})
 

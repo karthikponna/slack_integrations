@@ -15,7 +15,16 @@ def ingest_to_mongodb(
     collection_name: str, 
     clear_collection: bool = True
 ) -> Annotated[int, "output"]:
+    """Ingest documents into a MongoDB collection.
     
+    Args:
+        models: List of BaseModel instances to ingest into the collection.
+        collection_name: Name of the MongoDB collection to ingest documents into.
+        clear_collection: Whether to clear existing documents before ingestion. Defaults to True.
+    
+    Returns:
+        int: Count of documents in the collection after ingestion.
+    """
     if not models:
         raise ValueError("No documents provided for ingestion")
     

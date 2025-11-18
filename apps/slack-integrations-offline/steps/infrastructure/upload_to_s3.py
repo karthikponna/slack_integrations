@@ -14,7 +14,15 @@ def upload_to_s3(
     folder_path: Path,
     s3_prefix: str = "",
 ) -> Annotated[str, "output"]:
+    """Upload a local folder to AWS S3 and generate a presigned download URL.
     
+    Args:
+        folder_path: Path to the local folder to upload.
+        s3_prefix: Prefix path in S3 bucket where files will be uploaded. Defaults to empty string.
+    
+    Returns:
+        str: String representation of the uploaded folder path.
+    """
     time.sleep(1)
 
     s3_client = S3Client(bucket_name=settings.AWS_S3_BUCKET_NAME)

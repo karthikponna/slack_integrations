@@ -14,7 +14,15 @@ def read_documents_from_disk(
     data_directory: Path,
     nesting_level: int = 0,
 )-> Annotated[list[Document],"documents"]:
+    """Read Document objects from JSON files stored on disk.
     
+    Args:
+        data_directory: Path to the directory containing JSON files.
+        nesting_level: Level of subdirectory nesting to search for JSON files.
+    
+    Returns:
+        list[Document]: List of documents loaded from JSON files.
+    """
     pages:list[Document] = []
 
     logger.info(f"Reading documents from '{data_directory}'")
@@ -44,6 +52,15 @@ def read_documents_from_disk(
 
 def __get_json_files(data_directory: Path, nesting_level: int = 0) -> None:
 
+    """Read Document objects from JSON files stored on disk.
+    
+    Args:
+        data_directory: Path to the directory containing JSON files.
+        nesting_level: Level of subdirectory nesting to search for JSON files.
+    
+    Returns:
+        list[Document]: List of documents loaded from JSON files.
+    """
     if nesting_level == 0:
         return list(data_directory.glob("*.json"))
     
