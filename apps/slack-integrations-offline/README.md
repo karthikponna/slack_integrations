@@ -35,9 +35,9 @@ You need to **install WSL**, which will install a Linux kernel on your Windows m
 
 Also, the course requires access to these cloud services. The authentication to these services is done by adding the corresponding environment variables to the `.env` file:
 
-| Service | Purpose | Cost | Environment Variable | Setup Guide | Starting with Module |
+| Service | Purpose | Cost | Environment Variable | Setup Guide |
 |---------|---------|------|---------------------|-------------| ---------------------|
-| [OpenAI API](https://openai.com/index/openai-api/) | LLM API | Pay-per-use | `OPENAI_API_KEY` | [Quick Start Guide](https://platform.openai.com/docs/quickstart) | Module 2 |
+| [OpenAI API](https://openai.com/index/openai-api/) | LLM API | Pay-per-use | `OPENAI_API_KEY` | [Quick Start Guide](https://platform.openai.com/docs/quickstart)
 
 When working locally, the infrastructure is set up using Docker. Thus, you can use the default values found in the [config.py](apps/slack-integrations-offline/src/slack_integrations_offline/config.py) file for all the infrastructure-related environment variables.
 
@@ -152,3 +152,54 @@ make local-infrastructure-down
 [More on setting up `MongoDB Compass`](https://youtu.be/sSoVyHap3HY?si=IZd_F-hUZfN6-JPk)
 
 ![monogdb_compass.png](../../static/monogdb_compass.png)
+
+# ⚡️ Running the Code for Each Module
+
+Before running any module first follow these steps to clear the langchain with mongodb dependency issues:
+
+Step 1: Navigate to `.venv-offline/lib/python3.12/site-packages/langchain_mongodb/retrievers/__init__.py` then comment `MongoDBAtlasParentDocumentRetriever` and `MongoDBAtlasSelfQueryRetriever` imports.
+
+Step 2: Navigate to `.venv-offline/lib/python3.12/site-packages/langchain_mongodb/retrievers/parent_document.py` then comment the entire parent document file.
+
+## Module 1: Collect crawl data
+
+Run the below command to collect the crawled data from the documentation web pages.
+```bash
+make collect-crawl-data
+```
+
+> [!IMPORTANT]
+> If running `make collect-crawl-data` fails, type `https://support-public-data.s3.us-east-1.amazonaws.com/slack_integrations/crawled/crawled.zip` in your browser to download the dataset manually. Unzip `crawled.zip` and place it under the `data` directory as follows: `data/crawled` (create the `data` directory if it doesn't exist).
+
+Running criteria:
+- Running costs: $0
+- Running time: ~2 minutes
+
+![collect_crawl_data_pipeline.png](../../static/collect_crawl_data_pipeline.png)
+
+## Module 2: ETL pipeline
+
+Run the ETL pipeline to generate summaries and ingest into MongoDB:
+```bash
+make etl-pipeline
+```
+
+Running criteria:
+- Running costs: ~$0.05
+- Running time: ~2 minutes
+
+![etl_pipeline.png](../../static/etl_pipeline.png)
+
+## Module 3: Compute RAG pipeline
+
+Run the Compute RAG pipeline to fetch raw documents from MongoDB then Chunk these documents, generate embeddings, and load them into MongoDB with vector index.
+```bash
+make compute-rag-pipeline
+```
+
+Running criteria:
+- Running costs: ~$0.05
+- Running time: ~3 minutes
+
+![compute_rag_pipeline.png](../../static/compute_rag_pipeline.png)
+
