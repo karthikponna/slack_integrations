@@ -33,7 +33,7 @@ You need to **install WSL**, which will install a Linux kernel on your Windows m
 
 ## Cloud Services
 
-Also, the course requires access to these cloud services. The authentication to these services is done by adding the corresponding environment variables to the `.env` file:
+Also, the pipeline requires access to these cloud services. The authentication to these services is done by adding the corresponding environment variables to the `.env` file:
 
 | Service | Purpose | Cost | Environment Variable | Setup Guide |
 |---------|---------|------|---------------------|-------------| ---------------------|
@@ -108,21 +108,21 @@ Before running any command, you have to set up your environment:
 
 ```bash
 .
-├── configs/                   # ZenML configuration files
-├── pipelines/                 # ZenML ML pipeline definitions
+├── configs/                         # ZenML configuration files
+├── pipelines/                       # ZenML ML pipeline definitions
 ├── src/slack_integrations_offline/  # Main package directory
-│   ├── applications/           # Application layer
-│   ├── domain/                # Domain layer
-│   ├── infrastructure/        # Infrastructure layer
-│   ├── rag/                   # RAG layer
-│   ├── config.py              # Configuration settings
-│   └── utils.py               # Utility functions
-├── steps/                     # ZenML pipeline steps
-├── tools/                     # Entrypoint scripts that use the Python package
-├── .env.example               # Environment variables template
-├── .python-version            # Python version specification
-├── Makefile                   # Project commands
-└── pyproject.toml             # Project dependencies
+│   ├── applications/                # Application layer
+│   ├── domain/                      # Domain layer
+│   ├── infrastructure/              # Infrastructure layer
+│   ├── rag/                         # RAG layer
+│   ├── config.py                    # Configuration settings
+│   └── utils.py                     # Utility functions
+├── steps/                           # ZenML pipeline steps
+├── tools/                           # Entrypoint scripts that use the Python package
+├── .env.example                     # Environment variables template
+├── .python-version                  # Python version specification
+├── Makefile                         # Project commands
+└── pyproject.toml                   # Project dependencies
 ```
 
 # 🏗️ Set Up Your Local Infrastructure
@@ -157,9 +157,13 @@ make local-infrastructure-down
 
 Before running any module first follow these steps to clear the langchain with mongodb dependency issues:
 
-Step 1: Navigate to `.venv-offline/lib/python3.12/site-packages/langchain_mongodb/retrievers/__init__.py` then comment `MongoDBAtlasParentDocumentRetriever` and `MongoDBAtlasSelfQueryRetriever` imports.
+### Step 1: 
 
-Step 2: Navigate to `.venv-offline/lib/python3.12/site-packages/langchain_mongodb/retrievers/parent_document.py` then comment the entire parent document file.
+Navigate to `.venv-offline/lib/python3.12/site-packages/langchain_mongodb/retrievers/__init__.py` then comment `MongoDBAtlasParentDocumentRetriever` and `MongoDBAtlasSelfQueryRetriever` imports.
+
+### Step 2: 
+
+Navigate to `.venv-offline/lib/python3.12/site-packages/langchain_mongodb/retrievers/parent_document.py` then comment the entire parent document file.
 
 ## Module 1: Collect crawl data
 
