@@ -8,7 +8,7 @@ Note that this module is entirely independent of the offline ML pipelines. Thus,
 - [🎯 Getting Started](#-getting-started)
 - [📁 Project Structure](#-project-structure)
 - [🏗️ Set Up Your Local Infrastructure](#-set-up-your-local-infrastructure)
-- [⚡️ Running the Code for Each Module](#️-running-the-code-for-each-module)
+- [⚡️ Running the Code](#️-running-the-code)
 
 # 📋 Prerequisites
 
@@ -40,6 +40,8 @@ Also, the pipeline requires access to these cloud services. The authentication t
 | Service | Purpose | Cost | Environment Variable | Setup Guide |
 |---------|---------|------|---------------------|-------------| ---------------------|
 | [OpenAI API](https://openai.com/index/openai-api/) | LLM API | Pay-per-use | `OPENAI_API_KEY` | [Quick Start Guide](https://platform.openai.com/docs/quickstart)
+
+For Slack credentials follow the instructions from the [Running the app in Slack](#️-running-the-code) section.
 
 When working locally, the infrastructure is set up using Docker. Thus, you can use the default values found in the [config.py](apps/slack-integrations-offline/src/slack_integrations_offline/config.py) file for all the infrastructure-related environment variables.
 
@@ -170,7 +172,7 @@ Before running the Slack command, follow below steps to setup the **Slack Worksp
 
 - From your slack workspace under `Channels` create a new channel, now click on the newly created channel, press three dots from the top right corner and select `Edit Settings` > `Integrations` > `Add apps`, select the app which you created and select `Add`. Now you have successfully integrated your app in this channel.
 
-### Copying Slack Bot Token and App Token:
+### Follow below instructions to get the Slack Bot Token and App token:
 
 #### Slack Bot Token:
 
@@ -185,5 +187,14 @@ Before running the Slack command, follow below steps to setup the **Slack Worksp
 - Go to Features > Event Subscriptions, then toggle on Enable Events.
 - On the same page, expand `Subscribe to bot events,` click `Add Bot User Event`, and select `message.im.` and `app_mention`
 - Go to `Features` > `Oauth & Permissions` under `OAuth Tokens for Your Workspace` and click `Install to Workspace`.
-
 - You will be using the app-level token that starts with xapp-. Note that the token here is not one that starts with either xoxb- or xoxp-.
+
+> [!NOTE]
+> Make sure to configure the Slack Bot and App tokens in the .env file.
+
+Run the below command to launch your Agentic app in Slack.
+```bash
+make run-agent-slack
+```
+
+You should see something like this:

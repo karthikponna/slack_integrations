@@ -1,6 +1,9 @@
 <h1 align="center">Slack Integrations replacing AI support Engineers 🚀</h1>
 
-> architecture image
+<p align="center">
+    <img src="static/project_architecture.png" alt="Architecture" width="600">
+  </a>
+</p>
 
 Are you tired of going through all the documentation pages and still didn't find what you are looking for - this is the exact problem Slack Integrations is solving over Slack and replacing AI support Engineers for good.
 
@@ -56,4 +59,5 @@ You can always contribute by:
 - Fixing the bug
 - Creating a pull request
 
-We will deeply appreciate your support for the AI community and future readers 🤗
+We will deeply appreciate your support for the future readers 🤗
+
