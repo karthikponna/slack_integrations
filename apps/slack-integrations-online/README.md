@@ -1,6 +1,6 @@
 # 🚀 Slack Integrations Online Pipeline
 
-Note that this module is entirely independent of the offline ML pipelines. Thus, it comes with its own set of dependencies and requirements. Also, to run this module, you must first go through the steps from the [Offline ML Pipelines](../slack-integrations-offline), which will populate the vector database and other required resources.
+**Note** that this module is entirely independent of the offline ML pipelines. Thus, it comes with its own set of dependencies and requirements. Also, to run this module, you must first go through the steps from the [Offline ML Pipelines](../slack-integrations-offline), which will populate the vector database and other required resources.
 
 # 📑 Table of Contents
 
@@ -38,12 +38,13 @@ You need to **install WSL**, which will install a Linux kernel on your Windows m
 Also, the pipeline requires access to these cloud services. The authentication to these services is done by adding the corresponding environment variables to the `.env` file:
 
 | Service | Purpose | Cost | Environment Variable | Setup Guide |
-|---------|---------|------|---------------------|-------------| ---------------------|
-| [OpenAI API](https://openai.com/index/openai-api/) | LLM API | Pay-per-use | `OPENAI_API_KEY` | [Quick Start Guide](https://platform.openai.com/docs/quickstart)
+|---------|---------|------|----------------------|-------------|
+| [OpenAI API](https://openai.com/index/openai-api/) | LLM API | Pay-per-use | `OPENAI_API_KEY` | [Quick Start Guide](https://platform.openai.com/docs/quickstart) |
 
-For Slack credentials follow the instructions from the [Running the app in Slack](#️-running-the-code) section.
+> [!NOTE]
+> For Slack credentials follow the instructions from the [Running the app in Slack](#️-running-the-code) section.
 
-When working locally, the infrastructure is set up using Docker. Thus, you can use the default values found in the [config.py](apps/slack-integrations-offline/src/slack_integrations_offline/config.py) file for all the infrastructure-related environment variables.
+When working locally, the infrastructure is set up using Docker. Thus, you can use the default values found in the [config.py](src/slack_integrations_offline/config.py) file for all the infrastructure-related environment variables.
 
 But, in case you want to deploy the code, you'll need to setup the following services with their corresponding environment variables:
 
@@ -164,7 +165,7 @@ Before running the Slack command, follow below steps to setup the **Slack Worksp
 
 - Go to `Settings` > `Features` > `OAuth & Permissions` > `Scopes` > Under `Bot Token Scopes` add the below scopes one by one.
 
-- `app_mentions:read`, `assistant:write`, `calls:read`, `calls:write`, `channels:history`, `chat:write`, `conversations.connect:read`, `conversations.connect:write`, `groups:history`, `groups:read`, `groups:write`, `im:history`, `links:read`, `links:write`, `reactions:read`, `reactions:write`, `users.profile:read`, `users:read`, `users:read.email`
+- Scopes to add -> `app_mentions:read`, `assistant:write`, `calls:read`, `calls:write`, `channels:history`, `chat:write`, `conversations.connect:read`, `conversations.connect:write`, `groups:history`, `groups:read`, `groups:write`, `im:history`, `links:read`, `links:write`, `reactions:read`, `reactions:write`, `users.profile:read`, `users:read`, `users:read.email`
 
 - After adding the scopes now go to `OAuth Tokens` from the same page and press `install to {your workspace name}`. Now you have successfully installed your app into your slack workspace.
 
