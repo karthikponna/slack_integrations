@@ -199,3 +199,5 @@ make run-agent-slack
 ```
 
 You should see something like this:
+
+https://github.com/user-attachments/assets/edbc07f6-e73a-4d22-9f1d-c1a1149d580e
