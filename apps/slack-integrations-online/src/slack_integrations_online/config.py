@@ -29,8 +29,7 @@ class Settings(BaseSettings):
     )
 
     MONGODB_URI: str = Field(
-        default="mongodb://slack:slack@localhost:27017/?directConnection=true", 
-        # default="mongodb+srv://karthikponna963_db_user:ccWG3CrTZbWiEhXd@cluster0.yuyvgml.mongodb.net/",
+        default="mongodb://slack:slack@localhost:27017/?directConnection=true",
         description="Connection URI for the local MongoDB Atlas instance.",
     )
 
