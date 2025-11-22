@@ -5,7 +5,7 @@
   </a>
 </p>
 
-Are you tired of going through all the documentation pages and still didn't find what you are looking for - this is the exact problem Slack Integrations is solving over Slack and replacing AI support Engineers for good.
+Tired of digging through endless documentation pages and still not finding what you need? That's exactly what Slack Integrations solves - delivering intelligent AI support directly in your Slack workspace, replacing the need for human support engineers entirely.
 
 ## 🏗️ Project Structure
 
@@ -59,5 +59,5 @@ You can always contribute by:
 - Fixing the bug
 - Creating a pull request
 
-We will deeply appreciate your support for the future readers 🤗
+We will deeply appreciate your support for the future readers 😁
 
