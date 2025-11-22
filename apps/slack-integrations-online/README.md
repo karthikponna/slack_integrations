@@ -44,7 +44,7 @@ Also, the pipeline requires access to these cloud services. The authentication t
 > [!NOTE]
 > For Slack credentials follow the instructions from the [Running the app in Slack](#️-running-the-code) section.
 
-When working locally, the infrastructure is set up using Docker. Thus, you can use the default values found in the [config.py](src/slack_integrations_offline/config.py) file for all the infrastructure-related environment variables.
+When working locally, the infrastructure is set up using Docker. Thus, you can use the default values found in the [config.py](src/slack_integrations_online/config.py) file for all the infrastructure-related environment variables.
 
 But, in case you want to deploy the code, you'll need to setup the following services with their corresponding environment variables:
 
