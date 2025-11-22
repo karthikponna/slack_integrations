@@ -1,6 +1,6 @@
 # 🚀 Slack Integrations Offline Pipeline
 
-.....
+This guide will help you set up and run the offline ML pipeline for Slack Integrations. You'll build the data infrastructure that crawls documentation, processes it through ETL pipelines, and generates vector embeddings for RAG-based question answering.
 
 # 📑 Table of Contents
 
