@@ -1,7 +1,7 @@
 <h1 align="center">Slack Integrations replacing AI support Engineers 🚀</h1>
 
 <p align="center">
-    <img src="static/project_architecture.png" alt="Architecture" width="600">
+    <img src="static/project_architecture.png" alt="Architecture" width="700">
   </a>
 </p>
 
