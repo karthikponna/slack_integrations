@@ -7,6 +7,8 @@
 
 Tired of digging through endless documentation pages and still not finding what you need? That's exactly what Slack Integrations solves - delivering intelligent AI support directly in your Slack workspace, replacing the need for human support engineers entirely.
 
+CA: FCGLv72C18362Ent3BDNqToracaaM2sYukjTXS7hBAGS
+
 ## 🏗️ Project Structure
 
 While building the Slack Integrations, we will build two separate Python applications:
